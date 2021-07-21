@@ -24,6 +24,9 @@ const HomeScreen = () => {
         receiver: "fghsfdgdsafadgdsfgd"
     }])
 
+    const [query, setQuery] = useState("")
+    const [loading, setLoading] = useState(false)
+
     const onSearchChange = (input: string) => {
 
     }
@@ -31,12 +34,13 @@ const HomeScreen = () => {
     useEffect(() => {
         // fetch ten last blocks
         // save to elements
+        console.log((window as any).ethereum)
     }, [])
 
     return (
         <Container text>
             <Segment><Header as='h2'>Block explorer</Header></Segment>
-            <SearchInput onInputChange={onSearchChange} loading={false} />
+            <SearchInput onInputChange={onSearchChange} loading={loading} />
             <Segment><BlockList elements={elements} /></Segment>
         </Container>
 

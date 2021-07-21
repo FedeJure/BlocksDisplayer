@@ -3,11 +3,16 @@ import 'semantic-ui-css/semantic.min.css'
 import logo from './logo.svg';
 import './App.css';
 import HomeScreen from './screen/home/HomeScreen';
+import MetamaskScreen from './screen/metamaskScreen/MetamaskScreen';
 
 function App() {
+
+
   return (
     <div className="App">
-       <HomeScreen />
+      {(window as any).ethereum && (window as any).ethereum.isMetaMask ? <HomeScreen /> :
+        <MetamaskScreen />
+      }
     </div>
   );
 }
