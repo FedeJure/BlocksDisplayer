@@ -13,9 +13,9 @@ const BlockList = ({ elements }: { elements: BlockListElement[] }) => {
         <div>
             <Accordion fluid styled>
                 {elements.map((element, i) => (
-                    <>
+                    <div key={element.blockHash}>
                         <Accordion.Title
-                            key={element.blockHash}
+                            
                             active={activeIndex === i}
                             index={i}
                             onClick={() => handleClick(i)}
@@ -28,7 +28,7 @@ const BlockList = ({ elements }: { elements: BlockListElement[] }) => {
                             <p>Receiver account: {element.receiver}</p>
                             <p>Amount: {element.transactionAmount} </p>
                         </Accordion.Content>
-                    </>
+                    </div>
                 ))}
             </Accordion>
         </div>
