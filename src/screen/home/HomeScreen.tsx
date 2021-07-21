@@ -1,17 +1,21 @@
 import React, { useState, useEffect } from "react"
 import { Button, Container, Header, Segment } from 'semantic-ui-react'
 import SearchInput from "../../components/searchInput/SearchInput"
-import BlockList from "../../modules/blockList/BlockList"
+import BlockList, {BlockListElement} from "../../modules/blockList/BlockList"
+import Web3 from "web3"
+import {useGetTenLatestsBlock} from "../../hooks/getLatestsTenBlocks"
 
 const HomeScreen = () => {
     const ethereum = (window as any).ethereum
+    const web3 = new Web3(ethereum)
 
-    const [elements, setElements] = useState([])
+    const [transactions, setTransactions] = useState<BlockListElement[]>([])
 
     const [query, setQuery] = useState("")
     const [loading, setLoading] = useState(false)
     const [connected, setConnected] = useState(false)
-    const [currentAccount, setCurrentAccount] = useState("")
+    const [currentAccount, setCurrentAccount] = useState<string>("")
+    const {blocks} = useGetTenLatestsBlock({web3, account: currentAccount})
 
     const onSearchChange = (input: string) => {
 
@@ -29,9 +33,21 @@ const HomeScreen = () => {
         // fetch ten last blocks
         // save to elements
         ethereum.on("accountsChanged", (accounts: string[]) => {
-            console.log(accounts)
+            setTransactions([])            
+            setCurrentAccount(accounts[0])
         })
     }, [])
+
+    useEffect(() => {
+        const newTransactions : BlockListElement[] = []
+        blocks.forEach(block => {
+            block.transactions.forEach((transaction: any) => {
+                newTransactions.push({...transaction})
+            })
+        })
+        setTransactions(newTransactions)
+    }, [blocks])
+
 
     return (
         <Container text>
@@ -40,7 +56,7 @@ const HomeScreen = () => {
                 {connected && <span>Connected with account: {currentAccount}</span>}
             </Segment>
             <SearchInput onInputChange={onSearchChange} loading={loading} />
-            <Segment><BlockList elements={elements} /></Segment>
+            <Segment><BlockList elements={transactions} /></Segment>
         </Container>
 
     )

@@ -13,7 +13,7 @@ const BlockList = ({ elements }: { elements: BlockListElement[] }) => {
         <div>
             <Accordion fluid styled>
                 {elements.map((element, i) => (
-                    <div key={element.blockHash}>
+                    <div key={element.hash}>
                         <Accordion.Title
                             
                             active={activeIndex === i}
@@ -21,12 +21,12 @@ const BlockList = ({ elements }: { elements: BlockListElement[] }) => {
                             onClick={() => handleClick(i)}
                         >
                             <Icon name='dropdown' />
-                            {element.blockHash}
+                            {element.hash}
                         </Accordion.Title>
                         <Accordion.Content active={activeIndex === i}>
-                            <p>Sender account: {element.sender}</p>
-                            <p>Receiver account: {element.receiver}</p>
-                            <p>Amount: {element.transactionAmount} </p>
+                            <p>Sender account: {element.from}</p>
+                            <p>Receiver account: {element.to}</p>
+                            <p>Amount: {element.value} </p>
                         </Accordion.Content>
                     </div>
                 ))}
@@ -35,11 +35,11 @@ const BlockList = ({ elements }: { elements: BlockListElement[] }) => {
     )
 }
 
-interface BlockListElement {
-    blockHash: string,
-    transactionAmount: number,
-    sender: string,
-    receiver: string
+export interface BlockListElement {
+    hash: string,
+    value: number,
+    from: string,
+    to: string
 }
 
 export default BlockList
