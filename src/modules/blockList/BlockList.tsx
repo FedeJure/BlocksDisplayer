@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Accordion, Icon } from 'semantic-ui-react'
+import "./BlockList.css"
 
 const BlockList = ({ elements }: { elements: BlockListElement[] }) => {
     const [activeIndex, setActiveIndex] = useState<number | null>(null)
@@ -10,7 +11,7 @@ const BlockList = ({ elements }: { elements: BlockListElement[] }) => {
     }
 
     return (
-        <div>
+        <div className="blockList">
             <Accordion fluid styled>
                 {elements.map((element, i) => (
                     <div key={element.hash}>
