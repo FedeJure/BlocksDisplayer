@@ -7,6 +7,16 @@ const useGetTenLatestsBlock = ({ web3, account }: { web3: any, account: string }
         setNewBatch()
     }, [account])
 
+    useEffect(() => {
+        const subscription = web3.eth.subscribe('newBlockHeaders', () => {
+            setNewBatch();
+        });
+
+        return () => {
+            subscription.unsubscribe()
+        }
+    }, [])
+
     const setNewBatch = () => {
         web3.eth.getBlockNumber()
             .then((latestBlock: any) => {
