@@ -26,7 +26,7 @@ const BlockList = ({ elements }: { elements: BlockListElement[] }) => {
                         <Accordion.Content active={activeIndex === i}>
                             <p>Sender account: {element.from}</p>
                             <p>Receiver account: {element.to}</p>
-                            <p>Amount: {element.value} </p>
+                            <p>Amount: {element.value} ETH</p>
                         </Accordion.Content>
                     </div>
                 ))}

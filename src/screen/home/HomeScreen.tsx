@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react"
+import Web3 from "web3"
+import { BigNumber } from "bignumber.js";
 import { Button, Container, Header, Segment } from 'semantic-ui-react'
 import SearchInput from "../../components/searchInput/SearchInput"
 import BlockList, {BlockListElement} from "../../modules/blockList/BlockList"
-import Web3 from "web3"
 import {useGetTenLatestsBlock} from "../../hooks/getLatestsTenBlocks"
 
 const HomeScreen = () => {
@@ -42,9 +43,11 @@ const HomeScreen = () => {
         const newTransactions : BlockListElement[] = []
         blocks.forEach(block => {
             block.transactions.forEach((transaction: any) => {
-                newTransactions.push({...transaction})
+
+                newTransactions.push({...transaction, value:  Web3.utils.fromWei(transaction.value, 'ether')})
             })
         })
+        console.log(newTransactions)
         setTransactions(newTransactions)
     }, [blocks])
 
