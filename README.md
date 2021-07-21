@@ -1,6 +1,11 @@
 # BlocksDisplayer
 
-Web application that allows to explore blocks if Ethereum in real time. 
+Web application that allows to explore blocks in Ethereum chain in real time.
+
+The main features are: 
+- Direct connection with MetaMask
+- List all transactions for o cartain account
+- Allow to filter transactions by account address and transaction amount 
 
 > Builded with reactjs and typescript
 
